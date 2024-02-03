@@ -16,16 +16,20 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'first_name' => 'Admin',
-            'last_name' => 'Super',
-            'email' => 'superadmin@khgc.com',
-            'password' => bcrypt('Abcd@1234'),
-            'role' => 'admin',
-            'status' => 1,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $existingUser = DB::table('users')->where('email', 'superadmin@khgc.com')->first();
+        if (!$existingUser) {
+            // Nếu không tồn tại, thêm người quản trị mới
+            DB::table('users')->insert([
+                'first_name' => 'Admin',
+                'last_name' => 'Super',
+                'email' => 'superadmin@khgc.com',
+                'password' => Hash::make('your_password'),
+                'role' => 'admin',
+                'status' => 1,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
     }
 }

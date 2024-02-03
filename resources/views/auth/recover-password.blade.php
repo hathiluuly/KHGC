@@ -23,7 +23,11 @@
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
-
+      @if(session('success'))
+      <div class="alert alert-success alert-block" role="alert">
+         {{ session('success') }}
+      </div>
+      @endif
       <form action="{{route('post-resetpassword', ['token' => $token])}}" method="post">
         @csrf
         <input type="text" name="token" hidden value="{{$token}}">
@@ -36,7 +40,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="confirm-pass" placeholder="Confirm Password">
+          <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Http\Requests\UserRegistrationRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\RegistrationConfirmation;
@@ -13,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
     public function showRegister(){
-        return view('home.register');
+        return view('auth.register');
     }
 
     public function register(UserRegistrationRequest $request){
