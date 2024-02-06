@@ -11,5 +11,4 @@
  <p>{!! htmlspecialchars_decode($post->content) !!}</p>
 </div>
 
-\
  @endsection

@@ -48,19 +48,14 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/post', [PostController::class, 'index'])->name('post.index');
 
-    // Hiển thị form tạo mới bài viết
     Route::get('/post/create', [PostController::class, 'create'])->name('post.create');
 
-    // Lưu bài viết mới
     Route::post('/post', [PostController::class, 'store'])->name('post.store');
 
-    // Hiển thị chi tiết bài viết
     Route::get('/post/{post}', [PostController::class, 'show'])->name('post.show');
 
-    // Hiển thị form cập nhật bài viết
     Route::get('/post/edit/{post}', [PostController::class, 'edit'])->name('post.edit');
 
-    // Cập nhật bài viết có ID cụ thể
     Route::put('/post/{post}', [PostController::class, 'update'])->name('post.update');
 
     Route::delete('/post/delete/{id}', [PostController::class, 'delete'])->name('post.delete');

@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained(); // Mối quan hệ với user_id trong bảng users
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('thumbnail')->nullable();
-            $table->string('title');
-            $table->string('slug')->default('default-slug');
-            $table->string('description', 200)->nullable();
-            $table->text('content')->nullable();
+            $table->string('title', 100);
+            $table->string('slug', 100)->unique();
+            $table->string('description', 255)->nullable();
+            $table->longText('content');
+            $table->dateTime('publish_date')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

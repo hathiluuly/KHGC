@@ -12,6 +12,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
-        "@ckeditor/ckeditor5-build-classic": "^41.0.0"
+        "@ckeditor/ckeditor5-build-classic": "^41.0.0",
+        "summernote": "^0.8.20"
     }
 }

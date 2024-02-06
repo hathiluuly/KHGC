@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Helper\FlashHelper;
+use App\Http\Requests\CreatePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -26,24 +25,39 @@ class PostController extends Controller
     return view('post.index', compact('posts'));
     }
 
-    public function create()
+    public function create(Post $post)
     {
-        return view('post.create');
+        return view('post.create', compact('post'));
     }
 
     
-    public function store(Request $request)
+    public function store(CreatePostRequest $request, Post $post)
     {
-        $validatedData = $request->validate([
-            'content' => 'required',
-        ]);
+        $user_id = Auth::id();
+        $slug = Str::slug($request->title);
+        $count = 1;
     
-        // Lưu trữ nội dung được nhập từ CKEditor
-        $post = new Post;
-        $post->content = $request->input('content');
-        $post->save();
+        while (Post::where('slug', $slug)->exists()) {
+            $slug = Str::slug($request->title) . '-' . $count;
+            $count++;
+        }
+        $thumbnailPath = null;
 
-        return redirect()->route('post.index')->with('success', 'Bài viết đã được tạo thành công.');
+        if ($request->hasFile('thumbnail')) {
+            $post->addMedia($request->file('thumbnail'))->toMediaCollection('thumbnails');
+        }
+
+        $post = Post::create([
+            'user_id' => $user_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'content' => $request->content,
+            'publish_date' => $request->publish_date,
+            'thumbnail' => $thumbnailPath,
+            'slug' => $slug,
+        ]);
+
+        return redirect()->route('post.index')->with('success', 'Tạo bài viết thành công');
     }
 
     

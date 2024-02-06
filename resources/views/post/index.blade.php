@@ -28,6 +28,7 @@
             <tr>
               <th>Thumbnail</th>
               <th>Title</th>
+              <th>Slug</th>
               <th>Description</th>
               <th>Pushlish_date</th>
               <th>Status</th>
@@ -39,6 +40,7 @@
             <tr>
               <td>{{ $post -> thumbnail }}</td>
               <td>{{ $post -> title }}</td>
+              <td>{{ $post -> slug }}</td>
               <td>{{ $post -> description }}</td>
               <td>{{ $post -> created_at }}</td>
               <td>{{ $post -> status }}</td>

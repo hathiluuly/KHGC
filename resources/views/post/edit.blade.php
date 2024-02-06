@@ -28,7 +28,7 @@
 
         <div class="form-group" id="editor">
         <label for="exampleFormControlSelect1">Content</label>
-               <textarea class="form-control @error('content') is-invalid @enderror" name="content" rows="5" id="task-textarea">{{ old('content') }}{{ $post->content }} </textarea>
+               <textarea  class="summernote @error('content') is-invalid @enderror" name="content" rows="5" >{{ old('content') }}{{ $post->content }}</textarea>
                @error('content')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -42,11 +42,22 @@
         </div>
     </form>
     <script>
-        ClassicEditor
-            .create( document.querySelector( '#task-textarea' ) )
-            .catch( error => {
-                console.error( error );
-            } );
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 300, // Chiều cao của trình soạn thảo
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview']],
+                    ['help', ['help']]
+                ]
+            });
+        });
     </script>
 </div>
 @endsection

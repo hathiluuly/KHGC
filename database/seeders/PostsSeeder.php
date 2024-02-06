@@ -15,6 +15,8 @@ class PostsSeeder extends Seeder
      */
     public function run()
     {
+        Post::factory(5)->create(); 
+        
         Post::create([
             'user_id' => 2,
             'thumbnail' => 'path/to/thumbnail.jpg',

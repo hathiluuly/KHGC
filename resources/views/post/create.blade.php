@@ -15,44 +15,53 @@
                     @csrf
 
                     <div class="mb-3">
-                        <label for="thumbnail" class="form-label">Ảnh đại diện</label>
+                        <label for="thumbnail" class="form-label">Thumbnail</label>
                         <input type="file" class="form-control" id="thumbnail" name="thumbnail">
+                        <img src="{{ $post->getFullThumbnailAttribute() }}" alt="Thumbnail">
+
                     </div>
 
                     <div class="mb-3">
-                        <label for="title" class="form-label">Tiêu đề</label>
-                        <input type="text" class="form-control" id="title" name="title">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" class="form-control" value="{{ old('title') }}" id="title" name="title">
                     </div>
 
                     <div class="mb-3">
-                        <label for="description" class="form-label">Mô tả</label>
+                        <label for="description" class="form-label">Description</label>
                         <textarea class="form-control" id="description" name="description" rows="4"></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="created_at" class="form-label">Ngày tạo</label>
-                        <input type="date" class="form-control" id="created_at" name="created_at">
+                        <label for="content">Content</label>
+                        <textarea name="content" class="summernote"></textarea> 
                     </div>
-
                     <div class="mb-3">
-                        <label for="status" class="form-label">Trạng thái</label>
-                        <select class="form-select" id="status" name="status">
-                            <option value="published">Xuất bản</option>
-                            <option value="draft">Nháp</option>
-                        </select>
+                        <label for="publish_date">Publish Date</label>
+                        <input type="datetime-local" name="publish_date" class="form-control" value="{{ old('publish_date') }}">
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Lưu bài viết</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 <script>
-        ClassicEditor
-            .create(document.querySelector('#content'))
-            .catch(error => {
-                console.error(error);
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 300, // Chiều cao của trình soạn thảo
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview']],
+                    ['help', ['help']]
+                ]
             });
+        });
     </script>
 @endsection
