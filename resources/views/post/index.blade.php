@@ -26,6 +26,7 @@
           <table id="example2" class="table table-bordered table-hover">
             <thead>
             <tr>
+              
               <th>Thumbnail</th>
               <th>Title</th>
               <th>Slug</th>
@@ -38,7 +39,14 @@
             <tbody>
                 @foreach ($posts as $post)
             <tr>
-              <td>{{ $post -> thumbnail }}</td>
+              
+              <td>
+              @if ($post->hasMedia())
+                  <img class="img-fluid" src="{{ $post->getFirstMediaUrl('thumbnails') }}" alt="">
+              @else
+                  <img class="img-fluid" src="/storage/defaut_img/not found.png" alt="">
+              @endif
+              </td>
               <td>{{ $post -> title }}</td>
               <td>{{ $post -> slug }}</td>
               <td>{{ $post -> description }}</td>
@@ -65,6 +73,7 @@
 
         
         </div>
+  
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
@@ -74,4 +83,5 @@
   </div>
   <!-- /.row -->
 </div>
+{{$posts->links('pagination::bootstrap-4')}}
 @endsection

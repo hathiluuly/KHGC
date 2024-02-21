@@ -16,6 +16,10 @@
   <!-- Main Sidebar Container -->
   @include('layouts.Admin.sidebar')
 
+  <main class="py-4">
+       @yield('content')
+    </main>
+
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

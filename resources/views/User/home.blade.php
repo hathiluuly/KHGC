@@ -1,4 +1,4 @@
-@extends('')
+@extends('trangchu')
 
 @section('content')
     <style>

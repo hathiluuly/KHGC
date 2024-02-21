@@ -27,7 +27,7 @@ class CreatePostRequest extends FormRequest
             'title' => 'required|max:100',
             'content' => 'required',
             'description' => 'nullable|max:255',
-            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif,svg|max:200',
             'publish_date' => 'nullable|date',
             'status' => 'nullable|in:0,1,2',
         ];

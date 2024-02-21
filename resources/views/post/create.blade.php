@@ -17,23 +17,32 @@
                     <div class="mb-3">
                         <label for="thumbnail" class="form-label">Thumbnail</label>
                         <input type="file" class="form-control" id="thumbnail" name="thumbnail">
-                        <img src="{{ $post->getFullThumbnailAttribute() }}" alt="Thumbnail">
 
                     </div>
 
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control" value="{{ old('title') }}" id="title" name="title">
+                        <input type="text" class="form-control @error('content') is-invalid @enderror" value="{{ old('title') }}" id="title" name="title">
+                        @error('title')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                        <textarea class="form-control" value="{{ old('description') }}" id="description" name="description" rows="4"></textarea>
                     </div>
 
                     <div class="mb-3">
                         <label for="content">Content</label>
-                        <textarea name="content" class="summernote"></textarea> 
+                        <textarea name="content" class="summernote @error('content') is-invalid @enderror" ></textarea> 
+                        @error('content')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="publish_date">Publish Date</label>

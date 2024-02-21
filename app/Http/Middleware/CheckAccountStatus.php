@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckAccountStatus
 {
@@ -17,20 +18,19 @@ class CheckAccountStatus
      */
     public function handle(Request $request, Closure $next)
     {
-        $email = $request->input('email');
-            
-        $user = User::where('email', $email)->first();
-
+        
  
-        if ($user) {
+        if (Auth::check()&& Auth::user()->role != 'admin') {
             $statusMessages = [
                 0 => 'Tài khoản đang chờ phê duyệt',
                 2 => 'Tài khoản bị từ chối',
                 3 => 'Tài khoản bị khóa'
             ];
-            if (array_key_exists($user->status, $statusMessages)) {
-                $errorMessage = $statusMessages[$user->status];
+            if (array_key_exists(Auth::User()->status->value, $statusMessages)) {
+                $errorMessage = $statusMessages[Auth::User()->status->value];
                 return redirect()->back()->with('message', $errorMessage);
+                Auth::logout();
+                return redirect()->route('login');
             }
         return $next($request);
 

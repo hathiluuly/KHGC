@@ -22,7 +22,8 @@ class Post extends Model implements HasMedia
       'content',
       'thumbnail',
       'title',
-      'description'
+      'description',
+      'status',
     ];
 
     protected $attributes = [
@@ -39,6 +40,12 @@ class Post extends Model implements HasMedia
         // Nếu không có thumbnail, trả về một hình ảnh mặc định hoặc URL khác
         return asset('images/default-thumbnail.jpg');
     }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('thumbnails');
+    }
+
 
     public function setTitleAttribute($value)
     {

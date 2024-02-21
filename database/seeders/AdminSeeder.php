@@ -23,7 +23,7 @@ class AdminSeeder extends Seeder
                 'first_name' => 'Admin',
                 'last_name' => 'Super',
                 'email' => 'superadmin@khgc.com',
-                'password' => Hash::make('your_password'),
+                'password' => Hash::make('Abcd@1234'),
                 'role' => 'admin',
                 'status' => 1,
                 'created_at' => now(),

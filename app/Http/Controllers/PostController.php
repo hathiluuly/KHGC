@@ -17,13 +17,13 @@ class PostController extends Controller
 
     public function index()
     {
+        $user = Auth::user();
 
-    $user = Auth::user();
+        $posts = Post::with('user')->where('user_id', $user->id)->paginate(5);
 
-    $posts = Post::with('user')->where('user_id', $user->id)->get();
-
-    return view('post.index', compact('posts'));
+        return view('post.index', compact('posts'));
     }
+
 
     public function create(Post $post)
     {
@@ -41,11 +41,6 @@ class PostController extends Controller
             $slug = Str::slug($request->title) . '-' . $count;
             $count++;
         }
-        $thumbnailPath = null;
-
-        if ($request->hasFile('thumbnail')) {
-            $post->addMedia($request->file('thumbnail'))->toMediaCollection('thumbnails');
-        }
 
         $post = Post::create([
             'user_id' => $user_id,
@@ -53,9 +48,14 @@ class PostController extends Controller
             'description' => $request->description,
             'content' => $request->content,
             'publish_date' => $request->publish_date,
-            'thumbnail' => $thumbnailPath,
+            'thumbnail' => $request->thumbnail,
             'slug' => $slug,
         ]);
+
+        $post->addMediaFromRequest('thumbnail')
+        ->usingName($post->title)
+        ->toMediaCollection('thumbnails');
+        
 
         return redirect()->route('post.index')->with('success', 'Tạo bài viết thành công');
     }
@@ -68,22 +68,22 @@ class PostController extends Controller
 
     
     public function edit(Post $post)
-{
-    return view('post.edit', compact('post'));
-}
+    {
+        return view('post.edit', compact('post'));
+    }
 
-public function update(UpdatePostRequest $request, Post $post)
-{
-    
-    $post->update([
-        'title' => $request->input('title'),
-        'description' => $request->input('description'),
-        'content' => $request->input('content'),
+    public function update(UpdatePostRequest $request, Post $post)
+    {
         
-    ]);
+        $post->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'content' => $request->input('content'),
+            
+        ]);
 
-    return redirect()->route('post.index')->with('success', 'Bài viết đã được cập nhật thành công.');
-}
+        return redirect()->route('post.index')->with('success', 'Bài viết đã được cập nhật thành công.');
+    }
 
 
     

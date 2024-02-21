@@ -19,7 +19,7 @@ class PostsSeeder extends Seeder
         
         Post::create([
             'user_id' => 2,
-            'thumbnail' => 'path/to/thumbnail.jpg',
+            'thumbnail' => '',
             'title' => 'Tiêu đề bài viết 1',
             'content' =>'hsajhsaja',
             'description' => 'Nội dung mô tả cho bài viết 1.',
@@ -28,7 +28,7 @@ class PostsSeeder extends Seeder
 
         Post::create([
             'user_id' => 2,
-            'thumbnail' => 'path/to/another-thumbnail.jpg',
+            'thumbnail' => '',
             'title' => 'Tiêu đề bài viết 2',
             'content' =>'hsajhsaja',
             'description' => 'Nội dung mô tả cho bài viết 2.',

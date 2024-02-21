@@ -42,9 +42,8 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.html">Home</a></li>
+                            <li class="active"><a href="{{route('post.all')}}">Home</a></li>
                             <li><a href="{{route('post.index')}}">Posts</a></li>
-                            <li><a href="">Profile</a></li>
                         </ul>
                     </nav>
                 </div>
